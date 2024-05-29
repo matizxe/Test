@@ -1,6 +1,7 @@
 from info import *
 from pyrogram import Client
 from subprocess import Popen
+import asyncio
 
 User = Client(name="user", session_string=SESSION)
 DlBot = Client(name="auto-delete",
@@ -21,7 +22,7 @@ class Bot(Client):
     async def start(self):
         await super().start()
         await User.start()
-        Popen("python3 -m utils.delete", shell=True)
+        asyncio.create_task(run_check_up())
         print("Bot Started 👍🙂")
 
     async def stop(self, *args):
