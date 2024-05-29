@@ -3,6 +3,9 @@ from pyrogram.types import Message
 from info import ADMIN
 import re
 from datetime import datetime, timedelta
+from time import time
+import asyncio
+from utils.helpers import save_dlt_message, get_all_dlt_data, delete_all_dlt_data
 
 DELETE_REGEX = r"(\d+yrs)?\s*(\d+mon)?\s*(\d+wks)?\s*(\d+day)?\s*(\d+hrs)?\s*(\d+min)?"
 
@@ -52,8 +55,29 @@ async def delete_messages(client: Client, message: Message):
 
     deletion_time = datetime.now() + time_delta
 
-    # Store deletion schedule in your database here, using `message.chat.id` and `deletion_time`
+    # Store deletion schedule in your database
+    await save_dlt_message(message.chat.id, deletion_time)
 
     await message.reply_text(f"Messages will be deleted after {time_str} from now.")
 
-    # Add code to perform the actual message deletion as per your requirements
+async def check_up(bot):
+    _time = int(time())
+    all_data = await get_all_dlt_data(_time)
+    for data in all_data:
+        try:
+            await bot.delete_messages(chat_id=data["chat_id"],
+                                      message_ids=data["message_id"])
+        except Exception as e:
+            err = data
+            err["❌ Error"] = str(e)
+            print(err)
+    await delete_all_dlt_data(_time)
+
+async def run_check_up():
+    async with DlBot as bot:
+        while True:
+            await check_up(bot)
+            await asyncio.sleep(60)  # Check every minute
+
+if __name__ == "__main__":
+    asyncio.run(run_check_up())
