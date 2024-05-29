@@ -1,6 +1,6 @@
 import asyncio
-from pyrogram import Client, idle
-from info import API_ID, API_HASH, BOT_TOKEN, SESSION
+from pyrogram import Client
+from info import API_ID, API_HASH, BOT_TOKEN, SESSION, DATABASE_URI
 from plugins import *
 from utils.helpers import run_check_up
 
