@@ -1,7 +1,14 @@
+from urllib.parse import quote_plus
+
 API_ID = 20551282
 API_HASH = "f2aa48726d861f983ddb5f8f8d044a1e"
-BOT_TOKEN = "7197238223:AAEJIKM7dERY7ewqAkhGV0C1Ohd5pSK0AAk"
-SESSION = "BQE5lnIAb0Nc3SE_YE1ERuKSre5S0wJdhRcBdNFlTJfnn_ij-mvqVIVikhaT5icGuibNliOj_WF83N09w7rK-qcfEsgVx34B4-ja6gGe33lJ_pHWTxvKqxLMuXVHVpMhsiSCLmG9Bvc4ToCMXOk-J8gLjKuxoPjsjv7q5xrgHq1jW10mkp0MG8-cmbXi3gJcAdML3HI9vZlnXNbPNoDIrMzZQEJI0qW_kul_iS5Lqmqgfolop9gDEMzY1YWMUovi7E0llUC1T2uyaHJ2iED2MLZXwquBKrZauq1R7ECKYBfXrjXSCDo5FGCw_I0Z_anceol5hmEX32EOZHVj1jM4YPUAGIOQOQAAAAGJwFOWAA"
-DATABASE_URI = "mongodb+srv://lking8081:774623@Om@cluster0.qljrhwp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+BOT_TOKEN = "7018018136:AAFJ3xHuNBRmSXGRm4_0_M1HLvvLYFYMTDA"
+SESSION = "BQE5lnIAj4Iynun3rVc-mDGYVFgwy_ofWDswx9zRHUG1KRWmHAtQjmrGS8oLIKiLdfYU8TA7iGWUZEpjNK2jEIDHCD_rBYmCb1keX9shflfp8W9UPN3C92LN48iVbh0q-gsBE4pAlagYVzcz9_7n6-LveWCut0GKqinI3mWGluKk2ADmRfIeOCouFNJC-lwIi09jNZnvBed1nTs3XoF1JZbYfCzarzJP4C9d7P2UuwoDKEt2YnhZ13KnM5wCXB-7afY4GTXGT4W1mLJFIlBVWoCko0N1mU3bGffkeKHTfcFIXm4JyykoXDsMUeDPIWUhK3DXfY4YcMx_cCK77DKLuHUiAD_qtQAAAAGJwFOWAA"
 LOG_CHANNEL = -1002110630687
 ADMIN = 6606050198
+
+# URL-encode the username and password
+username = quote_plus("forpaiduser")
+password = quote_plus("EXy9d9MqZznOSc0x")
+
+DATABASE_URI = f"mongodb+srv://{username}:{password}@cluster0.hd6xbja.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
