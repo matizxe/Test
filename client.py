@@ -3,7 +3,7 @@ from pyrogram import Client
 from subprocess import Popen
 from utils.helpers import (
     add_group, get_group, update_group, delete_group, delete_user, get_groups, add_user,
-    get_users, save_dlt_message, get_all_dlt_data, delete_all_dlt_data, search_imdb,
+    get_users, save_dlt_message, get_all_dlt_data, delete_all_dlt_data,
     force_sub, broadcast_messages
 )
 
