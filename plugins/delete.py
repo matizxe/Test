@@ -29,14 +29,15 @@ def parse_time(duration: str):
 
 @Client.on_message(filters.command("delete") & (filters.user(ADMIN) | filters.group))
 async def delete_messages(client: Client, message: Message):
+    print(f"Received /delete command in chat {message.chat.id}, chat type: {message.chat.type}")
+
     if message.chat.type not in ["group", "supergroup"]:
         await message.reply_text("This command can only be used in groups.")
         return
 
-    if not message.from_user:
-        return
-
     user_status = await client.get_chat_member(message.chat.id, message.from_user.id)
+    print(f"User {message.from_user.id} status: {user_status.status}")
+
     if user_status.status not in ["administrator", "creator"] and message.from_user.id != ADMIN:
         await message.reply_text("You need to be a group admin or bot admin to use this command.")
         return
@@ -48,6 +49,7 @@ async def delete_messages(client: Client, message: Message):
 
     time_str = args[1]
     time_delta = parse_time(time_str)
+    print(f"Parsed time: {time_delta}")
 
     if not time_delta:
         await message.reply_text("Invalid time format. Use /delete 1yrs 2mon 4wks 4day 1hrs 3min")
@@ -55,9 +57,7 @@ async def delete_messages(client: Client, message: Message):
 
     deletion_time = datetime.now() + time_delta
 
-    # Store deletion schedule in your database
     await save_dlt_message(message.chat.id, deletion_time)
-
     await message.reply_text(f"Messages will be deleted after {time_str} from now.")
 
 async def check_up(bot):
@@ -65,8 +65,7 @@ async def check_up(bot):
     all_data = await get_all_dlt_data(_time)
     for data in all_data:
         try:
-            await bot.delete_messages(chat_id=data["chat_id"],
-                                      message_ids=data["message_id"])
+            await bot.delete_messages(chat_id=data["chat_id"], message_ids=data["message_id"])
         except Exception as e:
             err = data
             err["❌ Error"] = str(e)
@@ -77,7 +76,7 @@ async def run_check_up():
     async with DlBot as bot:
         while True:
             await check_up(bot)
-            await asyncio.sleep(60)  # Check every minute
+            await asyncio.sleep(60)
 
 if __name__ == "__main__":
     asyncio.run(run_check_up())
