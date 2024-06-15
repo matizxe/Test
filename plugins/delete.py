@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from time import time
 import asyncio
 from utils.helpers import save_dlt_message, get_all_dlt_data, delete_all_dlt_data
+from client import DlBot
 
 DELETE_REGEX = r"(\d+yrs)?\s*(\d+mon)?\s*(\d+wks)?\s*(\d+day)?\s*(\d+hrs)?\s*(\d+min)?"
 
