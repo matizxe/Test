@@ -47,7 +47,7 @@ async def delete_messages(client: Client, message: Message):
     print(f"User {message.from_user.id} status: {user_status.status}")
 
     if (
-        user_status.status not in ["administrator", "creator"]
+        user_status.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER]
         and message.from_user.id != ADMIN
     ):
         await message.reply_text(
