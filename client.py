@@ -36,7 +36,7 @@ class Bot(Client):
     async def start(self):
         await super().start()
         await User.start()
-        Popen("python3 -m utils.delete", shell=True)
+        Popen("python3 -m plugins.delete", shell=True)
         print("Bot Started 👍🙂")
 
     async def stop(self, *args):
