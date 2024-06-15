@@ -57,8 +57,8 @@ async def delete_messages(client: Client, message: Message):
 
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
-        text = """How to use this command 👇👇
-Follow this... 
+        text = """How to Use the /delete Command 👇👇
+use the following format: 
 
 min = minutes
 hrs = hours
@@ -67,7 +67,7 @@ wks = weeks
 mon = months
 yrs = years
 
-👉 Ex:- 1day 2hrs 5min [ 1 day and 2 hours and five minutes ]"""
+👉 Ex:- /delete 1day 2hrs 5min means the message will be deleted in 1 day, 2 hours, and 5 minutes."""
         await message.reply_text(text)
         return
 
