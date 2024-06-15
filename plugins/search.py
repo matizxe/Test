@@ -6,8 +6,15 @@ from client import User
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-@Client.on_message(filters.text & filters.group & filters.incoming & ~filters.command(["verify", "connect", "id"]))
+
+@Client.on_message(
+    filters.text
+    & filters.group
+    & filters.incoming
+    & ~filters.command(["verify", "connect", "id"])
+)
 async def search(bot, message):
+    chat_id = message.chat.id
     f_sub = await force_sub(bot, message)
     if f_sub == False:
         return
@@ -30,15 +37,25 @@ async def search(bot, message):
             msg = await message.reply_text(
                 "I couldn't find anything related to your query. Do you want to request this to the admin?",
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("🎯 Request To Admin 🎯", callback_data=f"request_{message.from_user.id}")]]
+                    [
+                        [
+                            InlineKeyboardButton(
+                                "🎯 Request To Admin 🎯",
+                                callback_data=f"request_{message.from_user.id}",
+                            )
+                        ]
+                    ]
                 ),
             )
         else:
-            msg = await message.reply_text(text=head + results, disable_web_page_preview=True)
+            msg = await message.reply_text(
+                text=head + results, disable_web_page_preview=True
+            )
         _time = int(time()) + (15 * 60)
-        await save_dlt_message(msg, _time)
+        await save_dlt_message(chat_id, msg, _time)
     except Exception as e:
         print(e)
+
 
 @Client.on_callback_query(filters.regex(r"^request"))
 async def request(bot, update):
