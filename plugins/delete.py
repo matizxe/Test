@@ -67,7 +67,7 @@ wks = weeks
 mon = months
 yrs = years
 
-👉 Ex:- 1day 2hrs 5min [ 1 day and 2 hours abd five minutes ]"""
+👉 Ex:- 1day 2hrs 5min [ 1 day and 2 hours and five minutes ]"""
         await message.reply_text(text)
         return
 
