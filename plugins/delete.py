@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import Message
 from info import ADMIN
 import re
@@ -39,7 +39,7 @@ async def delete_messages(client: Client, message: Message):
         f"Received /delete command in chat {message.chat.id}, chat type: {message.chat.type}"
     )
 
-    if message.chat.type not in ["group", "supergroup"]:
+    if message.chat.type not in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         await message.reply_text("This command can only be used in groups.")
         return
 
